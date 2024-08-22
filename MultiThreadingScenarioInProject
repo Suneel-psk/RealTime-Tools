@@ -1,0 +1,244 @@
+
+================
+Multi Threading
+================
+
+=> Multi Threading is used for parallel processing
+
+=> Multi Threading is mainley used in batch jobs.
+
+=> Batch jobs are used for batch processing / bulk-operations
+
+	Ex: account-statement-generation
+	    credit-card-bill-generation
+	    post-paid-bill-generation
+	    sending-product-delivery-notifications
+	    bulk-sms
+	    bulk-email
+
+========================================
+Monthly Bank Account Statement Scenario
+========================================
+
+public class SbiBank{
+
+	public void generateAndSendStatements(){
+		List<Accounts> list = dao.getAccounts();
+		for(Account acc : list){
+			prepareStatementPdf(acc.number);
+			sendStatement(file, acc.email);
+		}
+	}
+	
+	private void prepareStmtPdf(Long acctNum){
+			// get acc tx info
+			// generate pdf
+			// store pdf file in s3
+			// update pdf url in db
+	}
+
+	private void sendStatemtn(File f, String email){
+			// email sending logic
+	}
+}
+
+=> In the above program, we are generating account statements in sequential manner 
+  (one after other)
+
+Ex : for 1 customer statement generation it is taking 1 sec of time.
+
+1 minute => 60*60 => 60 stmts
+
+1 hour => 60 * 60 => 3,600 statements
+
+1 day => 24 * 3,600 => 86, 400  statements
+
+Note: in SBI, crores of customers having accounts so with above logic to send account statements to all account holders it will take 5 to 6 months of time which is not accepted.
+
+=========================================================
+E-Commerce application delivery notification scenario
+=========================================================
+
+=> Every data deliveries will be there in e-commerce application and application should send notification to customers regarding today's delivery in email and whatsapp.
+
+
+public class DeliveryNotificationService {	
+
+	public void sendDeliveryNotification(){
+			List<Deliver> list = dao.getTodayDeliveryDetails();
+			for(Deliver d : list){
+				sendEmail();
+				sendWhatsAppMsg();
+			}
+	}
+
+	private sendEmail(){
+		// logic to send email
+	}
+
+	private sendWhatsAppMsg(){
+		// logic to send whatsapp msg
+	}
+}
+
+
+=> In the above program, we are sending delivery notification in sequential manner 
+   (one after other)
+
+======================================
+Running our program with 1 thread
+====================================
+
+Ex : for 1 customer notification it is taking 1 sec of time.
+
+1 minute => 60*60 => 60 notifications
+
+1 hour => 60 * 60 => 3,600 notifications
+
+2 hours => 7,200 notifications
+
+1 day => 24 * 3,600 => 86, 400  notifications
+
+===================================
+Run our program with 10 threads
+===================================
+
+1 sec => 10 notifications
+
+1 min => 60 * 10 => 600 notifications
+
+1 hour => 60 * 600 => 36,000 notifications
+
+2 hours => 72, 000 notifications
+
+===================================
+Run our program with 20 threads
+===================================
+
+1 sec => 20 notifications
+
+1 min => 60 * 20 => 1200 notifications
+
+1 hour => 60 * 1200 => 72,000 notifications
+
+
+===============================================
+How to create Threads to run our program ?
+================================================
+
+=> We can create a thread in 3 ways
+
+1) By Extending Thread class
+
+2) By Implementing Runnable interface ( run() )
+
+3) By Implementing Callable interface ( call() )
+
+
+==================================================
+Approach-1 : Extend Properties from Thread class
+==================================================
+
+public class Demo extends  Thread{
+
+    public void run(){
+        System.out.println("run - called...");
+    }
+
+    public static void main(String[] args){
+        Demo d1 = new Demo();
+
+        Thread t1  = new Thread(d1);
+        t1.start();
+
+        Thread t2 = new Thread(d1);
+        t2.start();
+
+        Thread t3 = new Thread(d1);
+        t3.start();
+    }
+}
+
+=> If we extend properties from thread class then we can't extend properties from any other class in future.
+
+============================================
+Approach-2 : Implement Runnable interface
+============================================
+
+=> If we implement Runnable interface then we have to override run () method which will not return anything.		
+
+public class Demo2 implements Runnable{
+
+    @Override
+    public void run() {
+        System.out.println("run()- method called");
+    }
+    public static void main(String[] args) {
+        Demo2 d1 = new Demo2();
+        Thread t1 = new Thread(d1);
+        t1.start();
+    }
+}
+------------------------------------------------
+package in.ashokit;
+
+public class Demo3 {
+    public static void main(String[] args) {
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("run () - method called");
+            }
+        };
+        Thread t = new Thread(r);
+        t.start();
+    }
+}
+
+
+============================================
+Approach-3 : Implement Callable interface
+============================================
+
+=> Callable interface introduced in java 1.5v 
+
+=> Using callable interface we can implement multi threading
+
+=> We will use Executors framework in order to deal with Callable interface.
+
+
+------------------------------------------
+
+public class Demo4 {
+
+    public static void main(String[] args) {
+        Demo4 d = new Demo4();
+        d.processNotifications();
+    }
+
+    public void processNotifications() {
+        List<Orders> orders = dao.getOrders();
+	      ExecutorService executorService = Executors.newFixedThreadPool(10);
+        for (int i = 1; i <= orders.size(); i++) {
+            executorService.submit(new Callable<Object>() {
+                @Override
+                public Object call() throws Exception {
+                    sendNotification(orders.get(i));
+                    return null;
+                }
+            });
+        }
+    }
+
+    public static void sendNotification(Order order) {
+        //get order details
+        // get customer details
+        // send email
+        // send wathsapp msg
+        System.out.println("sending email ...");
+        System.out.println("sending whatsapp msg...");
+    }
+}
+----------------------------------------------------------------------------
+Multi Threading Impl : https://youtu.be/tWxx-Sp9Rcg?si=mi-ogVDYqM-R1AuA
+-----------------------------------------------------------------------------
