@@ -1,0 +1,144 @@
+
+=======================
+e-Commerce Application
+=======================
+
+1) Discovery Service (Eureka)
+2) Admin Server
+3) Zipkin Server
+4) Config Server
+5) Authorization Service
+6) Product Service
+7) Cart Service
+8) Order Service
+9) Payment Service
+10) Reports Service
+11) Gateway Service (Api Gateway)
+
+===================
+Database Tables
+===================
+
+1) USERS
+2) ROLES
+3) USER_ROLES
+4) CATEGORY
+5) PRODUCTS
+6) CART
+7) ORDERS
+
+========================
+DB Tables Structure
+========================
+
+## Table Name : USERS
+
+USER_ID		INT	PK	AUTO_INCREMENT
+FIRST_NAME	VARCHAR(500)
+LAST_NAME	VARCHAR(500)
+EMAIL		VARCHAR(500)
+PWD			VARCHAR(500)
+MOBILE		INT(15)
+ADDRESS		VARCHAR(500)
+CITY		VARCHAR(500)
+STATE		VARCHAR(500)
+PINCODE		VARCHAR(45)
+USER_PIC	VARCHAR(45) 
+
+## Table Name : ROLES
+
+ROLE_ID	INT PK AUTO_INCREMENT
+ROLE_NAME	VARCHAR(20)
+
+## Table Name : USER_ROLES
+
+USER_ID INT
+ROLE_ID INT
+
+FOREGIN_KEY	(USER_ID) REFERENCES USERS(USER_ID)
+FOREGIN_KEY	(ROLE_ID) REFERENCES ROLES(ROLE_ID)
+
+
+## Table Name : CATEGORY
+
+CATEGORY_ID	INT PK AUTO_INCREMENT
+TITLE	VARCHAR(100)
+CATEGORY_IMAGE VARCHAR(100)
+
+
+## Table Name : PRODUCTS
+
+PRODUCT_ID		INT PK AUTO_INCREMENT
+PRODUCT_NAME	VARCHAR(100)
+CATEGORY_ID		INT 
+DESC			VARCHAR(500)
+PRICE			INT
+STOCK			INT 
+IMAGE 			VARCHAR(100)
+DISCOUNT		INT 
+
+FOREGIN KEY (CATEGORY_ID) REFERENCES CATEGORY (CATEGORY_ID)
+
+## Table Name : CART
+
+CART_ID			INT 	PK	AUTO_INCREMENT
+PRODUCT_ID		INT
+USER_ID			INT
+QUANTITY		INT
+
+## Table Name : ORDERS
+
+ORDER_ID		INT   PK 	AUTO_INCREMENT
+USER_ID			INT
+PRODUCT_ID		INT
+QUANTITY		INT
+PRICE			INT
+PAYMENT_TYPE	VARCHAR
+ORDER_STATUS	VARCHAR
+ORDER_DATE		VARCHAR
+
+======================
+01-Jun :: Assignment
+======================
+
+1) Develop Discovery Server (Eureka)
+2) Develop Admin Server
+3) Develop Config Server
+4) Develop Authorization Service with Spring Security
+
+		- Register
+		- Login
+		- Forgot Pwd
+
+======================
+02-Jun :: Assignment
+======================
+
+1) Develop PRODUCT-Service which contains category and products related functionality
+
+*Note: Category and Product tables having one to many relationship so prepare entities accordingly.*
+
+*Category endpoints*
+POST - category
+GET - category/{id}
+GET - categories
+PUT - category
+DELETE - category/{id}
+
+*Product endpoints*
+POST - product
+PUT - product
+GET - product/{id}
+GET - products
+DELETE - product/{id}		
+
+
+
+
+
+
+
+
+
+
+
