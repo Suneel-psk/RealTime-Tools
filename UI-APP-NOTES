@@ -1,0 +1,146 @@
+
+==========================
+UI Development - Angular
+==========================
+
+=> Angular is UI framework
+
+=> Angular is used to develop client side of the application
+
+=> Angular framework developed using Typescript
+
+=> Angular developed by Google
+
+=> Angular is mainely used for single page application development.
+
+==========================
+Angular Building Blocks
+==========================
+
+1) Components
+
+2) Templates
+
+3) Data Binding
+
+4) Directives
+
+5) Pipes
+
+6) Services
+
+7) Dependency Injection
+
+==============================================================
+
+=> Component represents small portion in web page 
+
+		Ex: header component
+			menu component
+			body component
+			sidebar component
+			footer component etc...
+
+Note: Every component will have its own template
+
+=> Component & template relation will be represented using Metadata
+
+=> Data binding is the process of sending data from component to template and vice versa.
+
+Note: Angular supports two way data binding
+
+		component <--------------> template
+
+=> Service is a typescript class which contains business logic.
+
+=> Directives are used to manipulate DOM elements in template.
+
+		Ex: if - else, loops etc...		
+
+=> Pipes are used to transform the data in template.
+
+	ex: lower case to upper case & INR to USD etc...		
+
+=> Dependency Injection means injecting one class obj into another class obj
+
+		Ex: Inject service obj into component	
+
+===================
+Angular Setup
+===================
+
+Step-1 : Download and Install Node 
+
+	URL : https://nodejs.org/en/
+
+Note: After installation, verify node version 
+
+		$ node -v
+
+Step-2 : Install Type Script 
+
+		$ npm install -g typescript
+		
+		$ tsc -v 
+
+Step-3 : Install Angular CLI 
+
+		$ npm install @angular/cli -g
+		$ ng v
+
+Step-4 : Download and install VS Code IDE
+
+============================
+Angular Project Creation
+=============================
+
+# Step-1: Create Angular Application
+
+	$ ng new ecomm-ui
+
+# Step-2: Run Angular application
+
+	$ cd ecomm-ui
+	$ ng serve --open
+
+Note: When we run angular app, by default app-component will be loaded.	
+
+# Step-3: Install bootstrap
+
+	$ npm install bootstrap
+
+# Step-4: Configure bootstrap in angular.json file
+
+	"styles": [
+	  "node_modules/bootstrap/dist/css/bootstrap.min.css",
+	  "src/styles.css"
+	],
+
+# Step-5 : Stop and Run angular app
+
+# Step-6 : Update app-component template file
+
+<div class="container">
+  <h1>Angular UI App</h1>
+</div>
+
+
+# Step-7: Create footer component
+
+	$ ng g c footer
+
+-------------------Update footer-component template with below code -----------------------
+
+<div class="container-fluid p-1 bg-primary text-center text-white">
+    <p>Ashok IT - All Rights Reserved</p>
+</div>
+
+-------------------------------------------------------------------------------------------
+
+# Step-8: Access footer component from AppComponent template by using selector
+
+		<app-footer></app-footer>
+
+# Step-9: Create navbar component
+
+	$ ng g c navbar
