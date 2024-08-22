@@ -1,0 +1,174 @@
+
+===================
+Table : USER_DTLS
+===================
+
+USER_ID			INT		PK		AUTO_INCREMENT
+NAME			VARCHAR
+EMAIL			VARCHAR			UNIQUE
+PWD				VARCHAR
+PHNO			INT
+PWD_UPDATED		VARCHAR    (default : no)
+COUNTRY_ID		INT    FK
+STATE_ID		INT    FK
+CITY_ID			INT    FK
+CREATED_DATE	DATE
+UPDATED_DATE	DATE
+
+========================
+TABLE : COUNTRY_MASTER
+========================
+
+COUNTRY_ID		PK			  AUTO_INCREMENT
+COUNTRY_NAME	VARCHAR
+
+========================
+TABLE : STATE_MASTER
+========================
+
+STATE_ID		PK			  AUTO_INCREMENT
+STATE_NAME		VARCHAR
+COUNTRY_ID		INT			  FK
+
+========================
+TABLE : CITY_MASTER
+========================
+
+CITY_ID			PK			  AUTO_INCREMENT
+CITY_NAME		VARCHAR
+STATE_ID		INT			  FK
+
+====================
+Java Components
+====================
+
+----------in.ashokit---------
+
+Application.java  (start class)
+
+--------- in.ashokit.entity--------
+
+UserDtlsEntity.java
+CountryEntity.java
+StateEntity.java
+CityEntity.java
+
+-----------in.ashokit.repo-------
+
+UserDtlsRepo.java
+CountryRepo.java
+StateRepo.java
+CityRepo.java
+
+------------in.ashokit.dto---------
+
+RegisterDto.java
+LoginDto.java
+ResetPwdDto.java
+UserDto.java
+
+-------------in.ashokit.service-------
+
+UserService.java
+UserServiceImpl.java
+
+------------in.ashokit.controller--------
+
+UserController.java
+
+------------in.ashokit.util-------
+
+EmailUtils.java
+AppConstants.java
+AppProperties.java
+AppExHandler.java
+
+--------------------------------------
+
+index.html
+registration.html
+resetPwd.html
+dashboard.html
+
+app.js
+
+--------------------------------------
+
+=> Insert 2 countries (India, USA)
+
+=> Insert 2 states for each country
+
+		India => AP + TG
+
+		USA   => RI + New Jersey
+
+=> Insert 2 cities for each state
+
+		AP => Vizag + GNT
+		TG => HYD + Warangal
+
+		RI => City1 + City2
+		NJ => City1 + City2
+
+---------------------------------------------------
+
+1) Create Project structure 
+
+2) Create Java Classes
+
+3) Implement Service Layer methods
+
+4) Setup Country, State & Cities data in Database
+
+----------------------------------------------------
+
+
+=======================
+Service Layer Methods
+=======================
+
+public Map<Integer,String> getCountries();
+
+public Map<Integer,String> getStates(Integer cid);
+
+public Map<Integer,String> getCities(Integer sid);
+
+public UserDto getUser(String email);
+
+public boolean registerUser(RegisterDto regDto);
+
+public UserDto getUser(LoginDto loginDto);
+
+public boolean resetPwd(ResetPwdDto pwdDto);
+
+public String getQuote(); // api-call
+
+==========================
+Controller Layer Methods
+==========================
+
+public String registerPage(Model model);
+
+public Map<Integer, String> getStates(Integer cid);
+
+public Map<Integer, String> getCities(Integer sid);
+
+public String register(RegisterDto regDto);
+
+public String loginPage(Model model);
+
+public String login(LoginDto loginDto, Model model);
+
+public String resetPwd(ResetPwdDto pwdDto);
+
+public String dashboard(Model model);
+
+public String logout();
+
+
+
+
+
+
+
+
