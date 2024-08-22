@@ -1,0 +1,79 @@
+
+===========================
+Web application requests
+===========================
+
+1) synchronus request (page will be reloaded)
+
+2) asynchronus request (page will not be reload, only data will be loaded)
+
+
+in our app, for states and cities drop down we need to implement asynchronus request.
+
+=> To implement asynchronus request we will use AJAX.
+
+-> AJAX we can use with java script and with JQuery also.
+
+
+##### Step-1 : add below dependency in pom.xml #####
+
+<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>jquery</artifactId>
+			<version>3.6.4</version>
+</dependency>
+
+##### Step-2 : inlcude js file in html page <head/> section #####
+
+<script src="/webjars/jquery/3.6.4/jquery.min.js"></script>
+
+#### step-3 : implement ajax calls to load drop down options dynamically #####
+
+<script>
+
+		$(document).ready(function () {
+
+			$("#countryId").on("change", function () {
+
+				$('#stateId').find('option').remove();
+				$('#cityId').find('option').remove();
+
+				$('<option>').val('').text('-Select-').appendTo("#stateId");
+				$('<option>').val('').text('-Select-').appendTo("#cityId");
+
+				var cid = $('#countryId').val();
+				$.ajax({
+					type: 'GET',
+					url: '/states/' + cid,
+					success: function (response) {
+						console.log(response);
+						$.each(response, function (key, value) {
+							$('<option>').val(key).text(value).appendTo("#stateId");
+						});
+					}
+				});
+			});
+
+			$("#stateId").on("change", function () {
+
+				$('#cityId').find('option').remove();
+				$('<option>').val('').text('-Select-').appendTo("#cityId");
+
+
+				var sid = $('#stateId').val();
+				$.ajax({
+					type: 'GET',
+					url: '/cities/' + sid,
+					success: function (response) {
+						console.log(response);
+						$.each(response, function (key, value) {
+							$('<option>').val(key).text(value).appendTo("#cityId");
+						});
+					}
+				});
+			});
+		});
+
+	</script>		
+
+=====================================================================================
