@@ -622,6 +622,15 @@ Data JPA Specification
 =======================
 
 => Data JPA Specification is used to build dynamic queries based on certain conditions.
+Specification<T> is an interface provided by Spring Data JPA that allows dynamic query building using the Criteria API. 
+This is part of Spring Data JPA's support for the Specification pattern, which helps build complex queries dynamically.
+Ideal for search functionalities in REST APIs.
+This line is a lambda expression that returns a Specification<Product>. It helps build a dynamic query for filtering products where
+the price is less than a given value.
+root → Represents the root entity (the Product table in the database).
+query → Represents the criteria query that is being built.
+criteriaBuilder → A helper class that provides methods for constructing query conditions.
+
 
 
 @Entity
