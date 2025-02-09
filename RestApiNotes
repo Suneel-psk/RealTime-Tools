@@ -38,6 +38,8 @@ What is REST API ?
 =====================	
 
  Distributed App = rest api / restful service / restful webservice/microservice
+A REST API (Representational State Transfer Application Programming Interface) is a web service that follows REST 
+principles to allow communication between client and server applications over the internet.
 
 
 => REST API means an application which provides business logic to other applications through internet.	
@@ -75,7 +77,8 @@ What is HTTP
 => HTTP acts as mediator between Client & Server
 
 => HTTP is stateless protocol
-
+HTTP (HyperText Transfer Protocol) is a communication protocol used for transferring data between web browsers and 
+servers. It follows a request-response model and operates over TCP/IP.
 => We need to know about 
 
 		1) Http Request
