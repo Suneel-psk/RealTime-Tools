@@ -135,6 +135,30 @@ HTTP Status Codes
 
 5xx (500-599) : Server Error
 
+HTTP Status Codes
+HTTP responses include status codes to indicate the result of a request.
+
+1xx: Informational Responses
+100 Continue → Server received request headers, client should proceed with the request.
+101 Switching Protocols → Server agrees to switch protocols.
+2xx: Success
+200 OK → Request succeeded.
+201 Created → Resource successfully created.
+204 No Content → Request succeeded, but no response body.
+3xx: Redirection
+301 Moved Permanently → Resource permanently moved to a new URL.
+302 Found → Temporary redirection.
+304 Not Modified → Cached version of the resource is still valid.
+4xx: Client Errors
+400 Bad Request → Invalid request from client.
+401 Unauthorized → Authentication required.
+403 Forbidden → Access denied.
+404 Not Found → Resource doesn't exist.
+405 Method Not Allowed → HTTP method not supported.
+5xx: Server Errors
+500 Internal Server Error → Generic server failure.
+502 Bad Gateway → Server received an invalid response from another server.
+503 Service Unavailable → Server is overloaded or under maintenance.
 
 404 - Resource Not Found
 
